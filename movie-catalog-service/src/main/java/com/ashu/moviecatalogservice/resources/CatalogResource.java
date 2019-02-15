@@ -3,6 +3,7 @@ package com.ashu.moviecatalogservice.resources;
 import com.ashu.moviecatalogservice.model.CatalogItem;
 import com.ashu.moviecatalogservice.model.Movie;
 import com.ashu.moviecatalogservice.model.Rating;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,12 +16,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/catalog")
-public class MovieCatalogResource {
+public class CatalogResource {
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @RequestMapping("/{userId}")
-    public List<CatalogItem>  getCatalog(@PathVariable("userId") String userId){
-
-        RestTemplate restTemplate = new RestTemplate();
+    public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
         List<Rating> ratingsList = Arrays.asList(
                 new Rating("1234", 3),
                 new Rating("5678", 4)
@@ -28,9 +30,10 @@ public class MovieCatalogResource {
 
         return ratingsList.stream()
                 .map(rating -> {
-                    Movie movie = restTemplate.getForObject("http://localhost:8082/movies/"+ rating.getMovieId(), Movie.class);
-                    return new CatalogItem(movie.getName(), "Desc", rating.getRating());
+                    Movie movie = restTemplate.getForObject("http://localhost:8082/movies/" + rating.getMovieId(), Movie.class);
+                    return new CatalogItem(movie.getName(), "Description", rating.getRating());
                 })
                 .collect(Collectors.toList());
+
     }
 }
