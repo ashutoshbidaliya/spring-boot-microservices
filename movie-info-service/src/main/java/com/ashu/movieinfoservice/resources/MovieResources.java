@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/movies")
 public class MovieResources {
 
-    @RequestMapping("/{movieId)")
+    @RequestMapping(value = "/{movieId}")
     public Movie getMovieInfo(@PathVariable("movieId") String movieId){
-        return new Movie(movieId, "Name for ID " + movieId);
+        return new Movie(movieId, "Name for ID " + movieId );
     }
 
 }
