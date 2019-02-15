@@ -1,4 +1,4 @@
-package com.ashu.ratingdataservice.models;
+package com.ashu.moviecatalogservice.model;
 
 public class Rating {
 

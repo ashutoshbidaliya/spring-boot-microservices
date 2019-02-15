@@ -1,4 +1,4 @@
-package com.ashu.movieinfoservice.model;
+package com.ashu.moviecatalogservice.model;
 
 public class Movie {
 
@@ -6,8 +6,8 @@ public class Movie {
     private String name;
 
     public Movie(){
-
     }
+
     public String getMovieId() {
         return movieId;
     }
